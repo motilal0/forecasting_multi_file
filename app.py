@@ -53,10 +53,10 @@ if uploaded_files:
         st.write("Consolidated Dataset Preview:", consolidated_df.head())
 
 # Step 2: Option to select variables for time series plot
+st.header("Time Series Plots")
 if 'consolidated_df' in locals():
     time_var = st.selectbox("Select time variable", consolidated_df.columns)
     value_vars = st.multiselect("Select value variables", consolidated_df.columns)
-
 if st.button("Generate Time Series Plot") and value_vars:
     for value_var in value_vars:
         if value_var in consolidated_df.columns:
@@ -76,6 +76,7 @@ if st.button("Generate Time Series Plot") and value_vars:
             st.plotly_chart(fig)
 
 # Step 3: Option to select variables for correlation
+st.header("Correlation Analysis")
 if 'consolidated_df' in locals():
     corr_vars = st.multiselect("Select variables for correlation", consolidated_df.columns)
 
@@ -100,10 +101,10 @@ if 'consolidated_df' in locals():
         st.plotly_chart(fig)
 
 # Step 4: Feature importance plot for target variable
+st.header("Feature Importance")
 if 'consolidated_df' in locals():
     target_var = st.selectbox("Select target variable", consolidated_df.columns)
     feature_vars = st.multiselect("Select feature variables", [col for col in consolidated_df.columns if col != target_var])
-
     if st.button("Plot Feature Importance") and feature_vars:
         X = consolidated_df[feature_vars].fillna(0)
         y = consolidated_df[target_var].fillna(0)
@@ -122,6 +123,7 @@ if 'consolidated_df' in locals():
 
 # 5. Forecasting
 # Forecasting with models
+st.header("Forecasting")
 if 'consolidated_df' in locals():
     time_var = st.selectbox("Select time variable", consolidated_df.columns, key="time_var_select")
     target_var = st.selectbox("Select target variable", [col for col in consolidated_df.columns if col != time_var], key="target_var_select")
